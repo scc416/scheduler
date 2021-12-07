@@ -10,8 +10,12 @@ export default function Button(props) {
   if (confirm) {
     buttonClass += " button--confirm";
   } else if (danger) {
-   buttonClass += " button--danger";
+    buttonClass += " button--danger";
   }
 
-  return <button className={buttonClass}>{children}</button>;
-};
+  return (
+    <button className={buttonClass} onClick={onClick} disabled={disabled}>
+      {children}
+    </button>
+  );
+}
