@@ -3,5 +3,7 @@ import { useState } from 'react';
 export default function useVisualMode(initial) {
   const [mode, setMode] = useState(initial);
 
-  return { mode };
+  const transition = setMode;
+
+  return { mode, transition };
 }
