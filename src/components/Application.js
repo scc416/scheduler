@@ -5,7 +5,7 @@ import axios from "axios";
 import "components/Application.scss";
 import Appointment from "./Appointment";
 
-const appointments = [
+const hardcodedAppointments = [
   {
     id: 1,
     time: "12pm",
@@ -45,21 +45,19 @@ const appointments = [
 ];
 
 export default function Application(props) {
-  const [days, setDays] = useState([]);
-  const [day, setDay] = useState("Monday");
+  const [state, setState] = useState({
+    day: "Monday",
+    days: [],
+    appointments: hardcodedAppointments,
+  });
+
+  const setDay = (day) => setState((prev) => ({ ...prev, day }));
+  const setDays = (days) => setState((prev) => ({ ...prev, days }));
+
+  const { day, days, appointments } = state;
 
   useEffect(() => {
-    console.log("hi");
-    axios
-      .get(`/api/days`)
-      .then((response) => {
-        console.log("line 56");
-        const newResults = response.data;
-        console.log(newResults);
-        setDays([...newResults]);
-
-      })
-      .catch((err) => console.log(err));
+    axios.get("/api/days").then((response) => setDays(response.data));
   }, []);
 
   const appointmentElms = appointments.map((appointment) => {
