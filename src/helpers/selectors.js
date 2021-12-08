@@ -12,3 +12,7 @@ export function getAppointmentsForDay(state, day) {
   const appointmentArr = appointmentId.map(id => appointments[id]);
   return appointmentArr;
 }
+
+export function getInterview(state, interviewer) {
+  
+}
