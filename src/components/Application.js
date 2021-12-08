@@ -30,29 +30,22 @@ export default function Application(props) {
         ...prev,
         days: days.data,
         appointments: appointments.data,
-        interviwers: interviewers.data,
+        interviewers: interviewers.data,
       }));
     });
   }, []);
 
   const appointmentsForDay = getAppointmentsForDay(state, day);
 
-  const appointmentElms = appointmentsForDay.map(
-    (appointment) => {
-      const { id } = appointment;
-      return <Appointment key={id} {...appointment} />;
-    }
-  );
-
-  const schedule = appointmentsForDay.map((appointment) => {
-    const interview = getInterview(state, appointment.interview);
-    const { id, time } = interview;
+  const schedule = appointmentsForDay.map((interview) => {
+    const interviewInfo = getInterview(state, interview);
+    const { id, time, interview: interview2 } = interviewInfo;
     return (
       <Appointment
         key={id}
         id={id}
         time={time}
-        interview={interview}
+        interview={interview2}
       />
     );
   });
@@ -74,7 +67,7 @@ export default function Application(props) {
           alt="Lighthouse Labs"
         />
       </section>
-      <section className="schedule">{appointmentElms}</section>
+      <section className="schedule">{schedule}</section>
     </main>
   );
 }
