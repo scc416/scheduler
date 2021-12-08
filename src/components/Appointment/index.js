@@ -6,7 +6,6 @@ import Empty from "components/Appointment/Empty";
 
 const Appointment = (props) => {
   const { id, time, interview } = props;
-  console.log(interview);
   return (
     <article className="appointment">
       <Header time={time} />
