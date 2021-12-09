@@ -11,15 +11,15 @@ const SHOW = "SHOW";
 const CREATE = "CREATE";
 
 const Appointment = (props) => {
-  const { time, interview } = props;
+  const { time, interview, interviewers } = props;
   const { mode, transition, back } = useVisualMode(interview ? SHOW : EMPTY);
-  console.log(mode, interview);
+  console.log(interviewers);
   return (
     <article className="appointment">
       <Header time={time} />
       {mode === EMPTY && <Empty onAdd={() => transition(CREATE)} />}
       {mode === SHOW && <Show {...interview} />}
-      {mode === CREATE && <Form interviewers={[]} onCancel={() => back()} />}
+      {mode === CREATE && <Form interviewers={interviewers} onCancel={() => back()} />}
     </article>
   );
 };
