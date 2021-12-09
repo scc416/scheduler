@@ -17,9 +17,9 @@ const Appointment = (props) => {
   return (
     <article className="appointment">
       <Header time={time} />
-      { mode === EMPTY && <Empty onAdd={() => transition(CREATE)} /> }
-      { mode === SHOW && <Show {...interview} /> }
-      { mode === CREATE && <Form interviewers={[]} /> }
+      {mode === EMPTY && <Empty onAdd={() => transition(CREATE)} />}
+      {mode === SHOW && <Show {...interview} />}
+      {mode === CREATE && <Form interviewers={[]} onCancel={() => back()} />}
     </article>
   );
 };
