@@ -21,3 +21,19 @@ export function getInterview(state, interview) {
   const interviewerInfo = interviewers[interviewer];
   return { ...interview, interviewer: interviewerInfo };
 }
+
+export function getInterviewersForDay(state, day) {
+  const appointmentArr = getAppointmentsForDay(state, day);
+  const interviewerId = [];
+  for (const appointment of appointmentArr) {
+    const { interview } = appointment;
+    if (interview !== null) {
+      const { interviewer } = interview;
+      const interviewerIsNew = !interviewerId.includes(interviewer);
+      if (interviewerIsNew) interviewerId.push(interviewer);
+    }
+  }
+  const { interviewers } = state;
+  const interviewerArr = interviewerId.map(id => interviewers[id])
+  return interviewerArr;
+}
