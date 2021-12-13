@@ -7,6 +7,7 @@ import useVisualMode from "hooks/useVisualMode";
 import Form from "./Form";
 import Status from "./Status";
 import Confirm from "./Confirm";
+import Error from "./Error";
 
 const EMPTY = "EMPTY";
 const SHOW = "SHOW";
@@ -15,6 +16,8 @@ const SAVING = "SAVING";
 const DELETING = "DELETING";
 const CONFIRM = "CONFIRM";
 const EDIT = "EDIT";
+const ERROR_SAVE = "ERROR_SAVE";
+const ERROR_DELETE = "ERROR_DELETE";
 
 const Appointment = ({
   time,
@@ -34,6 +37,8 @@ const Appointment = ({
     };
     bookInterview(interview).then(() => {
       transition(SHOW);
+    }).catch(() => {
+      transition(ERROR_SAVE)
     });
   }
 
@@ -41,6 +46,8 @@ const Appointment = ({
     transition(DELETING);
     deleteInterview().then(() => {
       transition(EMPTY);
+    }).catch(() => {
+      transition(ERROR_DELETE)
     });
   };
 
@@ -86,6 +93,8 @@ const Appointment = ({
           onSave={save}
         />
       )}
+      {mode === ERROR_SAVE && <Error message="Could not create appointment." />}
+      {mode === ERROR_DELETE && <Error message="Could not cancel appointment." />}
     </article>
   );
 };
