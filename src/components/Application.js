@@ -10,13 +10,18 @@ import {
   getInterviewersForDay,
 } from "../helpers/selectors";
 
+function bookInterview(id, interview) {
+  console.log(id, interview);
+}
+
+
 export default function Application(props) {
   const [state, setState] = useState({
     day: "Monday",
     days: [],
     appointments: {},
     interviwers: {},
-  });
+  });  
 
   const setDay = (day) => setState((prev) => ({ ...prev, day }));
 
@@ -52,6 +57,7 @@ export default function Application(props) {
         time={time}
         interview={interviewInfo}
         interviewers={interviewersForDay}
+        bookInterview={bookInterview}
       />
     );
   });
