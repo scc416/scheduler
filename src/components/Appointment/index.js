@@ -30,7 +30,7 @@ const Appointment = ({
 
   function save(name, interviewer) {
     if (!name || !interviewer) return;
-    transition(SAVING);
+    transition(SAVING, true);
     const interview = {
       student: name,
       interviewer,
@@ -38,16 +38,16 @@ const Appointment = ({
     bookInterview(interview).then(() => {
       transition(SHOW);
     }).catch(() => {
-      transition(ERROR_SAVE)
+      transition(ERROR_SAVE, true);
     });
   }
 
   const destroy = () => {
-    transition(DELETING);
+    transition(DELETING, true);
     deleteInterview().then(() => {
       transition(EMPTY);
     }).catch(() => {
-      transition(ERROR_DELETE)
+      transition(ERROR_DELETE, true);
     });
   };
 
@@ -93,8 +93,8 @@ const Appointment = ({
           onSave={save}
         />
       )}
-      {mode === ERROR_SAVE && <Error message="Could not create appointment." />}
-      {mode === ERROR_DELETE && <Error message="Could not cancel appointment." />}
+      {mode === ERROR_SAVE && <Error message="Could not create appointment." onClose={() => back()} />}
+      {mode === ERROR_DELETE && <Error message="Could not cancel appointment." onClose={() => back()} />}
     </article>
   );
 };
