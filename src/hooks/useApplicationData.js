@@ -4,6 +4,7 @@ import axios from "axios";
 const SET_DAY = "SET_DAY";
 const SET_APPLICATION_DATA = "SET_APPLICATION_DATA";
 const SET_INTERVIEW = "SET_INTERVIEW";
+const SET_SPOTS = "SET_SPOTS";
 
 const useApplicationData = () => {
   const reducers = {
@@ -14,6 +15,19 @@ const useApplicationData = () => {
       const info = { ...action };
       delete info.type;
       return { ...state, ...info };
+    },
+    [SET_SPOTS](state, { spots }) {
+      const { day, days } = state;
+      const daysInfo = [...days];
+      const newDaysInfo = daysInfo.map((dayInfo) => {
+        const { name } = dayInfo;
+        const dayFound = name === day;
+        if (!dayFound) return dayInfo;
+        const newDayInfo = { ...dayInfo };
+        newDayInfo.spots += spots;
+        return newDayInfo;
+      });
+      return { ...state, days: newDaysInfo };
     },
     [SET_INTERVIEW](state, { id, interview }) {
       const { appointments } = state;
@@ -40,8 +54,6 @@ const useApplicationData = () => {
     interviewers: {},
   });
 
-  const { day, days } = state;
-
   useEffect(() => {
     Promise.all([
       axios.get("/api/days"),
@@ -61,17 +73,8 @@ const useApplicationData = () => {
 
   const setDay = (day) => dispatch({ type: SET_DAY, value: day });
 
-  const updateSpots = (num) => {
-    const daysInfo = [...days];
-    const newDaysInfo = daysInfo.map((dayInfo) => {
-      const { name } = dayInfo;
-      const dayFound = name === day;
-      if (!dayFound) return dayInfo;
-      const newDayInfo = { ...dayInfo };
-      newDayInfo.spots += num;
-      return newDayInfo;
-    });
-    dispatch({ type: SET_APPLICATION_DATA, days: newDaysInfo });
+  const updateSpots = (spots) => {
+    dispatch({ type: SET_SPOTS, spots });
   };
 
   const bookInterview = (id, interview) => {
