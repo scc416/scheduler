@@ -1,30 +1,38 @@
 import { useReducer, useEffect } from "react";
 import axios from "axios";
 
-const SET_STATE = "SET_STATE";
 const SET_DAY = "SET_DAY";
 const SET_APPLICATION_DATA = "SET_APPLICATION_DATA";
 const SET_INTERVIEW = "SET_INTERVIEW";
 
 const useApplicationData = () => {
   const reducers = {
-    [SET_STATE](state, action) {
-      return { ...state, ...action.value };
-    },
     [SET_DAY](state, action) {
       return { ...state, day: action.value };
     },
     [SET_APPLICATION_DATA](state, action) {
-      return { ...state, days: action.value };
+      const info = { ...action };
+      delete info.type;
+      return { ...state, ...info };
     },
-    [SET_INTERVIEW](state, action) {
-      return { ...state, appointments: action.value };
+    [SET_INTERVIEW](state, { id, interview }) {
+      const { appointments } = state;
+      const appointment = {
+        ...appointments[id],
+        interview,
+      };
+      const newAppointments = {
+        ...appointments,
+        [id]: appointment,
+      };
+      return { ...state, appointments: newAppointments };
     },
   };
 
   const reducer = (state, action) => {
     return reducers[action.type](state, action) || state;
   };
+
   const [state, dispatch] = useReducer(reducer, {
     day: "Monday",
     days: [],
@@ -32,7 +40,7 @@ const useApplicationData = () => {
     interviewers: {},
   });
 
-  const { appointments, day, days } = state;
+  const { day, days } = state;
 
   useEffect(() => {
     Promise.all([
@@ -43,12 +51,10 @@ const useApplicationData = () => {
       const [days, appointments, interviewers] = all;
 
       dispatch({
-        type: SET_STATE,
-        value: {
-          days: days.data,
-          appointments: appointments.data,
-          interviewers: interviewers.data,
-        },
+        type: SET_APPLICATION_DATA,
+        days: days.data,
+        appointments: appointments.data,
+        interviewers: interviewers.data,
       });
     });
   }, []);
@@ -65,36 +71,18 @@ const useApplicationData = () => {
       newDayInfo.spots += num;
       return newDayInfo;
     });
-    dispatch({ type: SET_APPLICATION_DATA, value: newDaysInfo });
+    dispatch({ type: SET_APPLICATION_DATA, days: newDaysInfo });
   };
 
   const bookInterview = (id, interview) => {
-    const appointment = {
-      ...appointments[id],
-      interview: { ...interview },
-    };
-    const newAppointments = {
-      ...appointments,
-      [id]: appointment,
-    };
-
     return axios.put(`/api/appointments/${id}`, { interview }).then(() => {
-      dispatch({ type: SET_INTERVIEW, value: newAppointments });
+      dispatch({ type: SET_INTERVIEW, id, interview });
     });
   };
 
   const cancelInterview = (id) => {
-    const appointment = {
-      ...appointments[id],
-      interview: null,
-    };
-    const newAppointments = {
-      ...appointments,
-      [id]: appointment,
-    };
-
     return axios.delete(`/api/appointments/${id}`).then(() => {
-      dispatch({ type: SET_INTERVIEW, value: newAppointments });
+      dispatch({ type: SET_INTERVIEW, id, interview: null });
     });
   };
 
