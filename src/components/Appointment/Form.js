@@ -2,14 +2,13 @@ import React, { useState } from "react";
 import Button from "components/Button";
 import InterviewerList from "components/InterviewerList";
 
-const Form = (props) => {
-  const {
-    student: studentName,
-    interviewers,
-    interviewer: interviewerNum,
-    onSave,
-    onCancel,
-  } = props;
+const Form = ({
+  student: studentName,
+  interviewers,
+  interviewer: interviewerNum,
+  onSave,
+  onCancel,
+}) => {
   const [student, setStudent] = useState(studentName || "");
   const [interviewer, setInterviewer] = useState(interviewerNum || null);
   const onChangeHandler = (event) => {

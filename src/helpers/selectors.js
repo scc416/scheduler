@@ -6,25 +6,21 @@ const getIdArr = (days, dayToBeFound, key) => {
   return [];
 };
 
-export function getAppointmentsForDay(state, day) {
-  const { days, appointments } = state;
+export function getAppointmentsForDay({ days, appointments }, day) {
   const appointmentId = getIdArr(days, day, "appointments");
   const appointmentArr = appointmentId.map((id) => appointments[id]);
   return appointmentArr;
 }
 
-export function getInterview(state, interview) {
+export function getInterview({ interviewers }, interview) {
   if (!interview) return null;
-
-  const { interviewers } = state;
   const { interviewer } = interview;
   const interviewerInfo = interviewers[interviewer];
   return { ...interview, interviewer: interviewerInfo };
 }
 
-export function getInterviewersForDay(state, day) {
-  const { days, interviewers } = state;
+export function getInterviewersForDay({ days, interviewers }, day) {
   const interviewersId = getIdArr(days, day, "interviewers");
-  const interviewersInfo = interviewersId.map(id => interviewers[id]);
+  const interviewersInfo = interviewersId.map((id) => interviewers[id]);
   return interviewersInfo;
 }
