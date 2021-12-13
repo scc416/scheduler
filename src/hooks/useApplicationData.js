@@ -52,6 +52,7 @@ const useApplicationData = () => {
     days: [],
     appointments: {},
     interviewers: {},
+    socket: null,
   });
 
   useEffect(() => {
@@ -69,6 +70,11 @@ const useApplicationData = () => {
         interviewers: interviewers.data,
       });
     });
+  }, []);
+
+  useEffect(() => {
+    const socket = new WebSocket(process.env.REACT_APP_WEBSOCKET_URL, "a");
+    return () => socket.close();
   }, []);
 
   const setDay = (day) => dispatch({ type: SET_DAY, value: day });
