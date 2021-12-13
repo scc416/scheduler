@@ -11,9 +11,9 @@ const EMPTY = "EMPTY";
 const SHOW = "SHOW";
 const CREATE = "CREATE";
 const SAVING = "SAVING";
+const DELETING = "DELETING";
 
 const Appointment = ({
-  id,
   time,
   interview,
   interviewers,
@@ -29,13 +29,14 @@ const Appointment = ({
       student: name,
       interviewer,
     };
+    console.log("SAVE");
     bookInterview(interview).then(() => {
       transition(SHOW);
     });
   }
 
   const deleteFunc = () => {
-    transition(SAVING);
+    transition(DELETING);
     deleteInterview().then(() => {
       transition(EMPTY);
     });
@@ -47,6 +48,7 @@ const Appointment = ({
       {mode === EMPTY && <Empty onAdd={() => transition(CREATE)} />}
       {mode === SHOW && <Show {...interview} onDelete={deleteFunc} />}
       {mode === SAVING && <Status message="Saving..." />}
+      {mode === DELETING && <Status message="Deleting..." />}
       {mode === CREATE && (
         <Form
           interviewers={interviewers}
