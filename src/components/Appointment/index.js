@@ -16,6 +16,7 @@ const Appointment = ({ id, time, interview, interviewers, bookInterview }) => {
   const { mode, transition, back } = useVisualMode(interview ? SHOW : EMPTY);
 
   function save(name, interviewer) {
+    if (!name || !interviewer ) return;
     transition(SAVING);
     const interview = {
       student: name,
