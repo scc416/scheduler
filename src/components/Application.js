@@ -18,7 +18,7 @@ export default function Application(props) {
     interviewers: {},
   });
 
-  function bookInterview(id, interview) {
+  const bookInterview = async (id, interview) => {
     const appointment = {
       ...state.appointments[id],
       interview: { ...interview },
@@ -27,12 +27,16 @@ export default function Application(props) {
       ...state.appointments,
       [id]: appointment,
     };
-    setState(prev => ({...prev, appointments}));
-  }
+    console.log(interview);
+    const result = await axios.put(`/api/appointments/${id}`, { interview });
+    setState((prev) => ({ ...prev, appointments }), result);
+
+    return result;
+  };
 
   const setDay = (day) => setState((prev) => ({ ...prev, day }));
 
-  const { day, days, interviewers } = state;
+  const { day, days } = state;
 
   useEffect(() => {
     Promise.all([

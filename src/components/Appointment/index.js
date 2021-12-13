@@ -19,8 +19,9 @@ const Appointment = (props) => {
       student: name,
       interviewer,
     };
-    bookInterview(id, interview);
-    transition(SHOW);
+    bookInterview(id, interview).then(() => {
+      transition(SHOW);
+    });
   }
 
   return (
