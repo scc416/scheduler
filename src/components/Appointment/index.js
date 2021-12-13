@@ -29,7 +29,6 @@ const Appointment = ({
       student: name,
       interviewer,
     };
-    console.log("SAVE");
     bookInterview(interview).then(() => {
       transition(SHOW);
     });
