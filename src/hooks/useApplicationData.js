@@ -1,5 +1,10 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
+import {
+  getAppointmentsForDay,
+  getInterview,
+  getInterviewersForDay,
+} from "../helpers/selectors";
 
 const useApplicationData = () => {
   const [state, setState] = useState({
@@ -9,7 +14,7 @@ const useApplicationData = () => {
     interviewers: {},
   });
 
-  const { appointments } = state;
+  const { appointments, day, days } = state;
 
   useEffect(() => {
     Promise.all([
@@ -29,6 +34,19 @@ const useApplicationData = () => {
   }, []);
 
   const setDay = (day) => setState((prev) => ({ ...prev, day }));
+
+  const updateSpots = (num) => {
+    const daysInfo = [...days];
+    const newDaysInfo = daysInfo.map((dayInfo) => {
+      const { name } = dayInfo;
+      const dayFound = name === day;
+      if (!dayFound) return dayInfo;
+      const newDayInfo = { ...dayInfo };
+      newDayInfo.spots += num;
+      return newDayInfo;
+    });
+    setState(prev => ({...prev, days: newDaysInfo}));
+  }
 
   const bookInterview = (id, interview) => {
     const appointment = {
@@ -59,12 +77,13 @@ const useApplicationData = () => {
       setState((prev) => ({ ...prev, appointments: newAppointments }));
     });
   };
-  console.log(state);
+  
   return {
     state,
     setDay,
     bookInterview,
     cancelInterview,
+    updateSpots
   };
 };
 

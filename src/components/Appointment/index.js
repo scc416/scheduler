@@ -25,6 +25,7 @@ const Appointment = ({
   interviewers,
   bookInterview,
   deleteInterview,
+  updateSpots,
 }) => {
   const { mode, transition, back } = useVisualMode(interview ? SHOW : EMPTY);
 
@@ -35,20 +36,26 @@ const Appointment = ({
       student: name,
       interviewer,
     };
-    bookInterview(interview).then(() => {
-      transition(SHOW);
-    }).catch(() => {
-      transition(ERROR_SAVE, true);
-    });
+    bookInterview(interview)
+      .then(() => {
+        updateSpots(-1);
+        transition(SHOW);
+      })
+      .catch(() => {
+        transition(ERROR_SAVE, true);
+      });
   }
 
   const destroy = () => {
     transition(DELETING, true);
-    deleteInterview().then(() => {
-      transition(EMPTY);
-    }).catch(() => {
-      transition(ERROR_DELETE, true);
-    });
+    deleteInterview()
+      .then(() => {
+        updateSpots(1);
+        transition(EMPTY);
+      })
+      .catch(() => {
+        transition(ERROR_DELETE, true);
+      });
   };
 
   const cancel = () => {
@@ -93,8 +100,12 @@ const Appointment = ({
           onSave={save}
         />
       )}
-      {mode === ERROR_SAVE && <Error message="Could not create appointment." onClose={() => back()} />}
-      {mode === ERROR_DELETE && <Error message="Could not cancel appointment." onClose={() => back()} />}
+      {mode === ERROR_SAVE && (
+        <Error message="Could not create appointment." onClose={() => back()} />
+      )}
+      {mode === ERROR_DELETE && (
+        <Error message="Could not cancel appointment." onClose={() => back()} />
+      )}
     </article>
   );
 };
