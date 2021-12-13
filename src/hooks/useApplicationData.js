@@ -59,7 +59,7 @@ const useApplicationData = () => {
       setState((prev) => ({ ...prev, appointments: newAppointments }));
     });
   };
-
+  console.log(state);
   return {
     state,
     setDay,

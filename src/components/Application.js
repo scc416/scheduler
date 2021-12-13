@@ -18,7 +18,6 @@ export default function Application(props) {
 
   const appointmentsForDay = getAppointmentsForDay(state, day);
   const interviewersForDay = getInterviewersForDay(state, day);
-
   const schedule = appointmentsForDay.map(({ id, time, interview }) => {
     const interviewInfo = getInterview(state, interview);
     return (
@@ -33,6 +32,7 @@ export default function Application(props) {
       />
     );
   });
+
   return (
     <main className="layout">
       <section className="sidebar">
@@ -51,7 +51,9 @@ export default function Application(props) {
           alt="Lighthouse Labs"
         />
       </section>
-      <section className="schedule">{schedule}</section>
+      <section className="schedule">
+        {schedule}<Appointment time="5pm" />
+      </section>
     </main>
   );
 }
