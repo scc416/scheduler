@@ -9,9 +9,9 @@ const Form = ({
   onSave,
   onCancel,
 }) => {
-  const { id } = interviewerInfo;
+  const interviewerId = interviewerInfo ? interviewerInfo.id: null ;
   const [student, setStudent] = useState(studentName || "");
-  const [interviewer, setInterviewer] = useState(id || null);
+  const [interviewer, setInterviewer] = useState(interviewerId || null);
   const onChangeHandler = (event) => {
     setStudent(event.target.value);
   };
