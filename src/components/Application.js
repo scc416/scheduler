@@ -10,22 +10,29 @@ import {
   getInterviewersForDay,
 } from "../helpers/selectors";
 
-function bookInterview(id, interview) {
-  console.log(id, interview);
-}
-
-
 export default function Application(props) {
   const [state, setState] = useState({
     day: "Monday",
     days: [],
     appointments: {},
-    interviwers: {},
-  });  
+    interviewers: {},
+  });
+
+  function bookInterview(id, interview) {
+    const appointment = {
+      ...state.appointments[id],
+      interview: { ...interview },
+    };
+    const appointments = {
+      ...state.appointments,
+      [id]: appointment,
+    };
+    setState(prev => ({...prev, appointments}));
+  }
 
   const setDay = (day) => setState((prev) => ({ ...prev, day }));
 
-  const { day, days } = state;
+  const { day, days, interviewers } = state;
 
   useEffect(() => {
     Promise.all([
