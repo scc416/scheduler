@@ -5,12 +5,13 @@ import InterviewerList from "components/InterviewerList";
 const Form = ({
   student: studentName,
   interviewers,
-  interviewer: interviewerNum,
+  interviewer: interviewerInfo,
   onSave,
   onCancel,
 }) => {
+  const { id } = interviewerInfo;
   const [student, setStudent] = useState(studentName || "");
-  const [interviewer, setInterviewer] = useState(interviewerNum || null);
+  const [interviewer, setInterviewer] = useState(id || null);
   const onChangeHandler = (event) => {
     setStudent(event.target.value);
   };
