@@ -42,7 +42,7 @@ const Appointment = ({
     });
   }
 
-  const deleteFunc = () => {
+  const destroy = () => {
     transition(DELETING);
     deleteInterview().then(() => {
       transition(EMPTY);
@@ -81,7 +81,7 @@ const Appointment = ({
       {mode === DELETING && <Status message="Deleting..." />}
       {mode === CONFIRM && (
         <Confirm
-          onConfirm={deleteFunc}
+          onConfirm={destroy}
           message="Are you sure you would like to delete?"
           onCancel={cancel}
         />
