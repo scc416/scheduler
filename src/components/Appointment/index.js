@@ -29,7 +29,7 @@ const Appointment = ({
 }) => {
   const { mode, transition, back } = useVisualMode(interview ? SHOW : EMPTY);
 
-  function save(name, interviewer) {
+  function save(name, interviewer, newInterview) {
     if (!name || !interviewer) return;
     transition(SAVING, true);
     const interview = {
@@ -38,7 +38,7 @@ const Appointment = ({
     };
     bookInterview(interview)
       .then(() => {
-        updateSpots(-1);
+        if (newInterview) updateSpots(-1);
         transition(SHOW);
       })
       .catch(() => {
@@ -97,7 +97,7 @@ const Appointment = ({
         <Form
           interviewers={interviewers}
           onCancel={() => back()}
-          onSave={save}
+          onSave={(name, interviewer) => save(name, interviewer, true)}
         />
       )}
       {mode === ERROR_SAVE && (
