@@ -18,24 +18,7 @@ export default function Application(props) {
     interviewers: {},
   });
 
-  const bookInterview = (id, interview) => {
-    const appointment = {
-      ...state.appointments[id],
-      interview: { ...interview },
-    };
-    const appointments = {
-      ...state.appointments,
-      [id]: appointment,
-    };
-
-    return axios.put(`/api/appointments/${id}`, { interview }).then(() => {
-      setState((prev) => ({ ...prev, appointments }));
-    });
-  };
-
-  const setDay = (day) => setState((prev) => ({ ...prev, day }));
-
-  const { day, days } = state;
+  const { day, days, appointments } = state;
 
   useEffect(() => {
     Promise.all([
@@ -54,6 +37,38 @@ export default function Application(props) {
     });
   }, []);
 
+  const bookInterview = (id, interview) => {
+    const appointment = {
+      ...appointments[id],
+      interview: { ...interview },
+    };
+    const newAppointments = {
+      ...appointments,
+      [id]: appointment,
+    };
+
+    return axios.put(`/api/appointments/${id}`, { interview }).then(() => {
+      setState((prev) => ({ ...prev, appointments: newAppointments }));
+    });
+  };
+
+  const deleteInterview = (id) => {
+    const appointment = {
+      ...appointments[id],
+      interview: null,
+    };
+    const newAppointments = {
+      ...appointments,
+      [id]: appointment,
+    };
+
+    return axios.delete(`/api/appointments/${id}`).then(() => {
+      setState((prev) => ({ ...prev, appointments: newAppointments }));
+    });
+  };
+
+  const setDay = (day) => setState((prev) => ({ ...prev, day }));
+
   const appointmentsForDay = getAppointmentsForDay(state, day);
   const interviewersForDay = getInterviewersForDay(state, day);
 
@@ -66,7 +81,8 @@ export default function Application(props) {
         time={time}
         interview={interviewInfo}
         interviewers={interviewersForDay}
-        bookInterview={bookInterview}
+        bookInterview={(interview) => bookInterview(id, interview)}
+        deleteInterview={() => deleteInterview(id)}
       />
     );
   });

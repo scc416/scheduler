@@ -12,26 +12,40 @@ const SHOW = "SHOW";
 const CREATE = "CREATE";
 const SAVING = "SAVING";
 
-const Appointment = ({ id, time, interview, interviewers, bookInterview }) => {
+const Appointment = ({
+  id,
+  time,
+  interview,
+  interviewers,
+  bookInterview,
+  deleteInterview,
+}) => {
   const { mode, transition, back } = useVisualMode(interview ? SHOW : EMPTY);
 
   function save(name, interviewer) {
-    if (!name || !interviewer ) return;
+    if (!name || !interviewer) return;
     transition(SAVING);
     const interview = {
       student: name,
       interviewer,
     };
-    bookInterview(id, interview).then(() => {
+    bookInterview(interview).then(() => {
       transition(SHOW);
     });
   }
+
+  const deleteFunc = () => {
+    transition(SAVING);
+    deleteInterview().then(() => {
+      transition(EMPTY);
+    });
+  };
 
   return (
     <article className="appointment">
       <Header time={time} />
       {mode === EMPTY && <Empty onAdd={() => transition(CREATE)} />}
-      {mode === SHOW && <Show {...interview} />}
+      {mode === SHOW && <Show {...interview} onDelete={deleteFunc} />}
       {mode === SAVING && <Status message="Saving..." />}
       {mode === CREATE && (
         <Form
