@@ -9,7 +9,7 @@ const Form = ({
   onSave,
   onCancel,
 }) => {
-  const interviewerId = interviewerInfo ? interviewerInfo.id: null ;
+  const interviewerId = interviewerInfo ? interviewerInfo.id : null;
   const [student, setStudent] = useState(studentName || "");
   const [interviewer, setInterviewer] = useState(interviewerId || null);
   const onChangeHandler = (event) => {
@@ -32,10 +32,11 @@ const Form = ({
             placeholder="Enter Student Name"
             onChange={onChangeHandler}
             value={student}
+            data-testid="input"
           />
         </form>
         <InterviewerList
-          interviewers={interviewers}
+          {...{ interviewers }}
           onChange={setInterviewer}
           value={interviewer}
         />

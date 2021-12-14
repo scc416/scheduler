@@ -6,8 +6,7 @@ export default function DayList({ days, value, onChange }) {
     return (
       <DayListItem
         key={id}
-        name={name}
-        spots={spots}
+        {...{ name, spots }}
         selected={name === value}
         setDay={() => onChange(name)}
       />

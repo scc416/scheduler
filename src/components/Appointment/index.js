@@ -70,17 +70,14 @@ const Appointment = ({
       {mode === EMPTY && <Empty onAdd={() => transition(CREATE)} />}
       {mode === SHOW && interview && (
         <Show
-          student={interview.student}
-          interviewer={interview.interviewer}
+          {...interview}
           onDelete={() => transition(CONFIRM)}
           onEdit={() => transition(EDIT)}
         />
       )}
-
       {mode === EDIT && (
         <Form
-          {...interview}
-          interviewers={interviewers}
+          {...{ ...interview, interviewers }}
           onCancel={() => back()}
           onSave={save}
         />
@@ -96,7 +93,7 @@ const Appointment = ({
       )}
       {mode === CREATE && (
         <Form
-          interviewers={interviewers}
+          {...{ interviewers }}
           onCancel={() => back()}
           onSave={(name, interviewer) => save(name, interviewer, true)}
         />

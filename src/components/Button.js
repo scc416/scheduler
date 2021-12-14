@@ -15,7 +15,7 @@ export default function Button({
   });
 
   return (
-    <button className={buttonClass} onClick={onClick} disabled={disabled}>
+    <button className={buttonClass} {...{ onClick, disabled }}>
       {children}
     </button>
   );
