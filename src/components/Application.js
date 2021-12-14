@@ -18,6 +18,8 @@ export default function Application(props) {
 
   const appointmentsForDay = getAppointmentsForDay(state, day);
   const interviewersForDay = getInterviewersForDay(state, day);
+
+  // map day's appointment into React elements
   const schedule = appointmentsForDay.map(({ id, time, interview }) => {
     const interviewInfo = getInterview(state, interview);
     return (
@@ -52,6 +54,7 @@ export default function Application(props) {
       </section>
       <section className="schedule">
         {schedule}
+        {/* for the last appointment, only the time is shown */}
         <Appointment time="5pm" />
       </section>
     </main>
