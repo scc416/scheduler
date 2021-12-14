@@ -30,11 +30,14 @@ const Appointment = ({
 
   function save(name, interviewer) {
     if (!name || !interviewer) return;
+
     transition(SAVING, true);
+
     const interview = {
       student: name,
       interviewer,
     };
+
     bookInterview(interview)
       .then(() => {
         transition(SHOW);
@@ -46,6 +49,7 @@ const Appointment = ({
 
   const destroy = () => {
     transition(DELETING, true);
+
     deleteInterview()
       .then(() => {
         transition(EMPTY);
@@ -59,6 +63,7 @@ const Appointment = ({
     if (interview && mode === EMPTY) {
       transition(SHOW);
     }
+
     if (!interview && mode === SHOW) {
       transition(EMPTY);
     }
