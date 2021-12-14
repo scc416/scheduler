@@ -6,7 +6,9 @@ const SET_APPLICATION_DATA = "SET_APPLICATION_DATA";
 const SET_INTERVIEW = "SET_INTERVIEW";
 const SET_SPOTS = "SET_SPOTS";
 
-const ws = new WebSocket(process.env.REACT_APP_WEBSOCKET_URL);
+const ws = new WebSocket(
+  process.env.REACT_APP_WEBSOCKET_URL || "ws://localhost:8001"
+);
 
 const useApplicationData = () => {
   const reducers = {
