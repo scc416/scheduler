@@ -11,7 +11,7 @@ import {
 } from "../helpers/selectors";
 
 export default function Application(props) {
-  const { state, setDay, bookInterview, cancelInterview, updateSpots } =
+  const { state, setDay, bookInterview, cancelInterview } =
     useApplicationData();
 
   const { day, days } = state;
@@ -29,7 +29,6 @@ export default function Application(props) {
         interviewers={interviewersForDay}
         bookInterview={(interview) => bookInterview(id, interview)}
         deleteInterview={() => cancelInterview(id)}
-        updateSpots={updateSpots}
       />
     );
   });

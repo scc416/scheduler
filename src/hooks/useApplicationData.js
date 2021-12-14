@@ -18,19 +18,6 @@ const useApplicationData = () => {
       delete info.type;
       return { ...state, ...info };
     },
-    [SET_SPOTS](state, { spots }) {
-      const { day, days } = state;
-      const daysInfo = [...days];
-      const newDaysInfo = daysInfo.map((dayInfo) => {
-        const { name } = dayInfo;
-        const dayFound = name === day;
-        if (!dayFound) return dayInfo;
-        const newDayInfo = { ...dayInfo };
-        newDayInfo.spots += spots;
-        return newDayInfo;
-      });
-      return { ...state, days: newDaysInfo };
-    },
     [SET_INTERVIEW](state, { id, interview }) {
       const { appointments } = state;
       const appointment = {
@@ -41,7 +28,22 @@ const useApplicationData = () => {
         ...appointments,
         [id]: appointment,
       };
+
       return { ...state, appointments: newAppointments };
+    },
+    [SET_SPOTS](state) {
+      const { days, appointments } = state;
+      const newDays = days.map((day) => {
+        const { appointments: dayAppointments } = day;
+        const spots = dayAppointments.reduce((totalSpot, id) => {
+          const appointmentInfo = appointments[id];
+          const { interview } = appointmentInfo;
+          if (interview) return totalSpot - 1;
+          return totalSpot;
+        }, 5);
+        return { ...day, spots };
+      });
+      return { ...state, days: newDays };
     },
   };
 
@@ -75,15 +77,10 @@ const useApplicationData = () => {
   }, []);
 
   useEffect(() => {
-    ws.onopen = () => {
-      console.log("CONNECTED");
-    };
-
     ws.onmessage = (event) => {
       const action = JSON.parse(event.data);
-      console.log("Type,", action.type);
-      console.log(action);
       dispatch(action);
+      dispatch({ type: SET_SPOTS });
     };
 
     return () => ws.close();
@@ -93,20 +90,23 @@ const useApplicationData = () => {
     dispatch({ type: SET_DAY, value: day });
   };
 
-  const updateSpots = (spots) => {
-    const action = { type: SET_SPOTS, spots };
-    ws.send(JSON.stringify(action));
-  };
-
   const bookInterview = (id, interview) => {
-    const action = { type: SET_INTERVIEW, id, interview };
+    const action = {
+      type: SET_INTERVIEW,
+      id,
+      interview,
+    };
     return axios.put(`/api/appointments/${id}`, { interview }).then(() => {
       ws.send(JSON.stringify(action));
     });
   };
 
   const cancelInterview = (id) => {
-    const action = { type: SET_INTERVIEW, id, interview: null };
+    const action = {
+      type: SET_INTERVIEW,
+      id,
+      interview: null,
+    };
     return axios.delete(`/api/appointments/${id}`).then(() => {
       ws.send(JSON.stringify(action));
     });
@@ -117,7 +117,6 @@ const useApplicationData = () => {
     setDay,
     bookInterview,
     cancelInterview,
-    updateSpots,
   };
 };
 

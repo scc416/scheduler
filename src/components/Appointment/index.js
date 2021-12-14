@@ -25,7 +25,6 @@ const Appointment = ({
   interviewers,
   bookInterview,
   deleteInterview,
-  updateSpots,
 }) => {
   const { mode, transition, back } = useVisualMode(interview ? SHOW : EMPTY);
 
@@ -38,7 +37,6 @@ const Appointment = ({
     };
     bookInterview(interview)
       .then(() => {
-        if (newInterview) updateSpots(-1);
         transition(SHOW);
       })
       .catch(() => {
@@ -50,7 +48,6 @@ const Appointment = ({
     transition(DELETING, true);
     deleteInterview()
       .then(() => {
-        updateSpots(1);
         transition(EMPTY);
       })
       .catch(() => {
