@@ -58,13 +58,6 @@ const Appointment = ({
       });
   };
 
-  const cancel = () => {
-    transition(SHOW);
-  };
-  const confirm = () => {
-    transition(CONFIRM);
-  };
-
   useEffect(() => {
     if (interview && mode === EMPTY) {
       transition(SHOW);
@@ -101,7 +94,7 @@ const Appointment = ({
         <Confirm
           onConfirm={destroy}
           message="Are you sure you would like to delete?"
-          onCancel={cancel}
+          onCancel={() => transition(SHOW)}
         />
       )}
       {mode === CREATE && (
