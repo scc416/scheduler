@@ -59,7 +59,7 @@ const Appointment = ({
     if (interview && mode === EMPTY) {
       transition(SHOW);
     }
-    if (interview === null && mode === SHOW) {
+    if (!interview && mode === SHOW) {
       transition(EMPTY);
     }
   }, [interview, transition, mode]);
