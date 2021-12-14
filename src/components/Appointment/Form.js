@@ -24,7 +24,7 @@ const Form = ({
   };
 
   const validate = () => {
-    if (student === "") {
+    if (!student) {
       return setError("Student name cannot be blank");
     }
     setError("");
