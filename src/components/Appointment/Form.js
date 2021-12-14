@@ -54,10 +54,10 @@ const Form = ({
       </section>
       <section className="appointment__card-right">
         <section className="appointment__actions">
-          <Button danger onClick={() => reset()}>
+          <Button danger onClick={reset}>
             Cancel
           </Button>
-          <Button confirm onClick={() => validate()}>
+          <Button confirm onClick={validate}>
             Save
           </Button>
         </section>
