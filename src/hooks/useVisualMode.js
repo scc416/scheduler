@@ -9,15 +9,19 @@ export default function useVisualMode(initial) {
       return setMode(newMode);
     }
     
-    setHistory((prev) => [...prev, mode]);
+    setHistory(prev => [...prev, mode]);
     setMode(newMode);
   };
 
   const back = () => {
     const historyLength = history.length;
+
+    // only go back when history is not empty
     if (historyLength > 0) {
       const lastMode = history[historyLength - 1];
       setMode(lastMode);
+
+      // remove lastMode from history
       setHistory((prev) => prev.slice(0, -1));
     }
   };
