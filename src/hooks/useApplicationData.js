@@ -64,7 +64,6 @@ const useApplicationData = () => {
     days: [],
     appointments: {},
     interviewers: {},
-    socket: null,
   });
 
   useEffect(() => {

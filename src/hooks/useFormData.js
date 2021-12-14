@@ -1,43 +1,74 @@
-import { useReducer, useEffect, useState } from "react";
+import { useReducer } from "react";
+
+const SET_INTERVIEWER = "SET_INTERVIEWER";
+const SET_ERROR = "SET_ERROR";
+const SET_STUDENT = "SET_STUDENT";
 
 const useFormData = ({
   student: studentName,
-  interviewers,
   interviewer: interviewerInfo,
   onSave,
   onCancel,
 }) => {
+  const reducers = {
+    [SET_INTERVIEWER](state, { interviewer }) {
+      return { ...state, interviewer };
+    },
+    [SET_ERROR](state, { error }) {
+      return { ...state, error };
+    },
+    [SET_STUDENT](state, { student }) {
+      return { ...state, student };
+    },
+  };
+
+  const reducer = (state, action) => {
+    return reducers[action.type](state, action) || state;
+  };
+
   const interviewerId = interviewerInfo ? interviewerInfo.id : null;
-  const [student, setStudent] = useState(studentName || "");
-  const [interviewer, setInterviewer] = useState(interviewerId || null);
-  const [error, setError] = useState("");
+
+  const [state, dispatch] = useReducer(reducer, {
+    student: studentName || "",
+    interviewer: interviewerId,
+    error: "",
+  });
+
+  const { student, interviewer } = state;
 
   const onChangeHandler = (event) => {
-    setStudent(event.target.value);
+    const student = event.target.value;
+    dispatch({ type: SET_STUDENT, student });
   };
 
   const reset = () => {
-    setError("");
-    setStudent("");
-    setInterviewer(null);
+    dispatch({ type: SET_ERROR, error: "" });
+    dispatch({ type: SET_STUDENT, student: "" });
+    dispatch({ type: SET_INTERVIEWER, interviewer: null });
     onCancel();
   };
 
   const validate = () => {
     if (!student) {
-      return setError("Student name cannot be blank");
+      return dispatch({
+        type: SET_ERROR,
+        error: "Student name cannot be blank",
+      });
     }
-    setError("");
+
+    dispatch({ type: SET_ERROR, error: "" });
     onSave(student, interviewer);
   };
 
+  const setInterviewer = (interviewer) => {
+    dispatch({ type: SET_INTERVIEWER, interviewer });
+  };
+
   return {
+    state,
     onChangeHandler,
-    student,
     validate,
-    error,
     setInterviewer,
-    interviewer,
     reset,
   };
 };

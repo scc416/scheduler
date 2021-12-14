@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import Button from "components/Button";
 import InterviewerList from "components/InterviewerList";
 import useFormData from "hooks/useFormData";
@@ -6,14 +6,12 @@ import useFormData from "hooks/useFormData";
 const Form = (props) => {
   const { interviewers } = props;
   const {
+    state: { student, interviewer, error },
     onChangeHandler,
-    student,
     validate,
-    error,
     setInterviewer,
-    interviewer,
-    reset
-  } = useFormData;
+    reset,
+  } = useFormData(props);
 
   return (
     <main className="appointment__card appointment__card--create">
