@@ -6,6 +6,8 @@ const SET_APPLICATION_DATA = "SET_APPLICATION_DATA";
 const SET_INTERVIEW = "SET_INTERVIEW";
 const SET_SPOTS = "SET_SPOTS";
 
+const ws = new WebSocket(process.env.REACT_APP_WEBSOCKET_URL);
+
 const useApplicationData = () => {
   const reducers = {
     [SET_DAY](state, action) {
@@ -73,25 +75,40 @@ const useApplicationData = () => {
   }, []);
 
   useEffect(() => {
-    const socket = new WebSocket(process.env.REACT_APP_WEBSOCKET_URL, "a");
-    return () => socket.close();
+    ws.onopen = () => {
+      console.log("CONNECTED");
+    };
+
+    ws.onmessage = (event) => {
+      const action = JSON.parse(event.data);
+      console.log("Type,", action.type);
+      console.log(action);
+      dispatch(action);
+    };
+
+    return () => ws.close();
   }, []);
 
-  const setDay = (day) => dispatch({ type: SET_DAY, value: day });
+  const setDay = (day) => {
+    dispatch({ type: SET_DAY, value: day });
+  };
 
   const updateSpots = (spots) => {
-    dispatch({ type: SET_SPOTS, spots });
+    const action = { type: SET_SPOTS, spots };
+    ws.send(JSON.stringify(action));
   };
 
   const bookInterview = (id, interview) => {
+    const action = { type: SET_INTERVIEW, id, interview };
     return axios.put(`/api/appointments/${id}`, { interview }).then(() => {
-      dispatch({ type: SET_INTERVIEW, id, interview });
+      ws.send(JSON.stringify(action));
     });
   };
 
   const cancelInterview = (id) => {
+    const action = { type: SET_INTERVIEW, id, interview: null };
     return axios.delete(`/api/appointments/${id}`).then(() => {
-      dispatch({ type: SET_INTERVIEW, id, interview: null });
+      ws.send(JSON.stringify(action));
     });
   };
 
