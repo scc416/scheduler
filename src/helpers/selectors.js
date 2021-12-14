@@ -9,8 +9,8 @@ const getIdArr = (days, dayToBeFound, key) => {
 
 export function getAppointmentsForDay({ days, appointments }, day) {
   const appointmentId = getIdArr(days, day, "appointments");
-  const appointmentArr = appointmentId.map((id) => appointments[id]);
-  return appointmentArr;
+  const appointmentsInfo = appointmentId.map((id) => appointments[id]);
+  return appointmentsInfo;
 }
 
 export function getInterview({ interviewers }, interview) {
