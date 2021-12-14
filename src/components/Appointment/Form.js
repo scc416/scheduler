@@ -17,6 +17,7 @@ const Form = ({
     setStudent(event.target.value);
   };
   const reset = () => {
+    setError("");
     setStudent("");
     setInterviewer(null);
     onCancel();
