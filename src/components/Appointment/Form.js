@@ -1,35 +1,19 @@
 import React, { useState } from "react";
 import Button from "components/Button";
 import InterviewerList from "components/InterviewerList";
+import useFormData from "hooks/useFormData";
 
-const Form = ({
-  student: studentName,
-  interviewers,
-  interviewer: interviewerInfo,
-  onSave,
-  onCancel,
-}) => {
-  const interviewerId = interviewerInfo ? interviewerInfo.id : null;
-  const [student, setStudent] = useState(studentName || "");
-  const [interviewer, setInterviewer] = useState(interviewerId || null);
-  const [error, setError] = useState("");
-  const onChangeHandler = (event) => {
-    setStudent(event.target.value);
-  };
-  const reset = () => {
-    setError("");
-    setStudent("");
-    setInterviewer(null);
-    onCancel();
-  };
-
-  const validate = () => {
-    if (!student) {
-      return setError("Student name cannot be blank");
-    }
-    setError("");
-    onSave(student, interviewer);
-  };
+const Form = (props) => {
+  const { interviewers } = props;
+  const {
+    onChangeHandler,
+    student,
+    validate,
+    error,
+    setInterviewer,
+    interviewer,
+    reset
+  } = useFormData;
 
   return (
     <main className="appointment__card appointment__card--create">
