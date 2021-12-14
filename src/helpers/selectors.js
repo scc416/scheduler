@@ -1,7 +1,8 @@
 const getIdArr = (days, dayToBeFound, key) => {
   for (const day of days) {
     const { name, [key]: info } = day;
-    if (name === dayToBeFound) return info;
+    const dayFound = name === dayToBeFound;
+    if (dayFound) return info;
   }
   return [];
 };
