@@ -9,6 +9,7 @@ export default function Button({
   onClick,
   disabled,
 }) {
+  
   const buttonClass = classNames("button", {
     "button--confirm": confirm,
     "button--danger": danger,

@@ -19,7 +19,7 @@ export default function Application(props) {
   const appointmentsForDay = getAppointmentsForDay(state, day);
   const interviewersForDay = getInterviewersForDay(state, day);
 
-  // map day's appointment into React elements
+  // map day's appointments into React elements
   const schedule = appointmentsForDay.map(({ id, time, interview }) => {
     const interviewInfo = getInterview(state, interview);
     return (
