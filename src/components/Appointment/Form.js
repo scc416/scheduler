@@ -2,18 +2,17 @@ import React, { useState } from "react";
 import Button from "components/Button";
 import InterviewerList from "components/InterviewerList";
 
-const Form = (props) => {
-  const {
-    student: studentName,
-    interviewers,
-    interviewer: interviewerInfo,
-    onSave,
-    onCancel,
-  } = props;
+const Form = ({
+  student: studentName,
+  interviewers,
+  interviewer: interviewerInfo,
+  onSave,
+  onCancel,
+}) => {
   const interviewerId = interviewerInfo ? interviewerInfo.id : null;
   const [student, setStudent] = useState(studentName || "");
   const [interviewer, setInterviewer] = useState(interviewerId || null);
-  const [error, setError] = useState(null);
+  const [error, setError] = useState("");
   const onChangeHandler = (event) => {
     setStudent(event.target.value);
   };
@@ -28,7 +27,7 @@ const Form = (props) => {
       return setError("Student name cannot be blank");
     }
 
-    props.onSave(student, interviewer);
+    onSave(student, interviewer);
   };
 
   return (
@@ -44,6 +43,7 @@ const Form = (props) => {
             value={student}
             data-testid="input"
           />
+          <section className="appointment__validation">{error}</section>
         </form>
         <InterviewerList
           {...{ interviewers }}
