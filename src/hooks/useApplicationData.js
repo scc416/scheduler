@@ -12,8 +12,8 @@ const ws = new WebSocket(
 
 const useApplicationData = () => {
   const reducers = {
-    [SET_DAY](state, action) {
-      return { ...state, day: action.value };
+    [SET_DAY](state, { day }) {
+      return { ...state, day };
     },
     [SET_APPLICATION_DATA](state, action) {
       const info = { ...action };
@@ -33,16 +33,22 @@ const useApplicationData = () => {
 
       return { ...state, appointments: newAppointments };
     },
+    // this function update the number of spots for ALL of the day (in days)
     [SET_SPOTS](state) {
       const { days, appointments } = state;
+
+      // map each day to new day with updated spots
       const newDays = days.map((day) => {
         const { appointments: dayAppointments } = day;
         const spots = dayAppointments.reduce((totalSpot, id) => {
+          // get info of an appointment from the appointments object in state
           const appointmentInfo = appointments[id];
           const { interview } = appointmentInfo;
           if (interview) return totalSpot - 1;
           return totalSpot;
         }, 5);
+
+        // return new day with updated spots
         return { ...day, spots };
       });
       return { ...state, days: newDays };
@@ -81,7 +87,12 @@ const useApplicationData = () => {
   useEffect(() => {
     ws.onmessage = (event) => {
       const action = JSON.parse(event.data);
+
+      // type of action from server is always SET_INTERVIEW
+      // because the api server only sends SET_INTERVIEW action to all clients
       dispatch(action);
+
+      // to update the spots, SET_SPOTS action has to be dispatch after interviews are updated
       dispatch({ type: SET_SPOTS });
     };
 
@@ -89,7 +100,7 @@ const useApplicationData = () => {
   }, []);
 
   const setDay = (day) => {
-    dispatch({ type: SET_DAY, value: day });
+    dispatch({ type: SET_DAY, day });
   };
 
   const bookInterview = (id, interview) => {
