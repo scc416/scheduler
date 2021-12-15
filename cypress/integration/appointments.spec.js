@@ -18,4 +18,16 @@ describe("Appointment", () => {
       "Sylvia Palmer"
     );
   });
+
+  it("should edit an interview", () => {
+    cy.get("[alt=Edit]").click({ force: true });
+    cy.get("[data-testid=input]").clear().type("Lydia Miller-Jones");
+    cy.get(`[alt="Tori Malcolm"]`).click();
+    cy.contains("Save").click();
+    cy.contains(
+      ".appointment__card--show",
+      "Lydia Miller-Jones",
+      "Tori Malcolm"
+    );
+  });
 });
