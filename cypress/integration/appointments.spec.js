@@ -22,12 +22,18 @@ describe("Appointment", () => {
   it("should edit an interview", () => {
     cy.get("[alt=Edit]").click({ force: true });
     cy.get("[data-testid=input]").clear().type("Lydia Miller-Jones");
-    cy.get(`[alt="Tori Malcolm"]`).click();
+    cy.get(`[alt="Sylvia Palmer"]`).click();
     cy.contains("Save").click();
     cy.contains(
       ".appointment__card--show",
       "Lydia Miller-Jones",
-      "Tori Malcolm"
+      "Sylvia Palmer"
     );
+  });
+
+  it("should cancel an interview", () => {
+    cy.get("[alt=Delete]").click({ force: true });
+    cy.contains("Confirm").click();
+    cy.contains(".appointment__card--show", "Archie Cohen").should("not.exist");
   });
 });
