@@ -4,6 +4,7 @@ const getIdArr = (days, dayToBeFound, key) => {
     const dayFound = name === dayToBeFound;
     if (dayFound) return info;
   }
+
   return [];
 };
 
