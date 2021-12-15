@@ -12,9 +12,9 @@ const ws = new WebSocket(
 
 const useApplicationData = () => {
   const reducers = {
-    [SET_DAY](state, { day }) {
-      return { ...state, day };
-    },
+    // [SET_DAY](state, { day }) {
+    //   return { ...state, day };
+    // },
     [SET_APPLICATION_DATA](state, action) {
       const info = { ...action };
       delete info.type;
