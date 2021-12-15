@@ -35,7 +35,6 @@ deploy:
         command: |
           git push https://github.com/scc416/scheduler.git master:production
 
-
 workflows:
   version: 2
   test_and_deploy:
