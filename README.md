@@ -15,7 +15,37 @@ The boilerplate was generated using [create-react-app](https://create-react-app.
 https://scheduler-sc.netlify.app/
 
 ## Final Product
-![docs/navbar](./docs/navbar.gifv)
+
+### Create appointment
+A user can book an interview in an empty appointment slot.
+
+### Edit appointment
+Interviews are booked by typing in a student name and clicking on an interviewer from a list of available interviewers.
+
+### Cancel appointment
+A user can cancel an existing interview.
+A user is presented with a confirmation when they attempt to cancel an interview.
+
+### Update all clients
+![socket](./docs/socket.gif)
+The client application communicates with a WebSocket server.  
+When a user books or cancels an interview, all connected users see the update in their browser. Number of spots are also updated.
+
+### Navigation Bar
+A user can switch between weekdays.
+
+### Handle empty input(s)
+![input-error](./docs/input-error.gif)
+
+### Handling Errors
+A user is shown an error if an interview cannot be saved or deleted. When the user presses the close button of the error they are returned to the Form or Show view.
+#### Create appointment
+
+#### Edit appointment
+![edit-error](./docs/edit-error.gif)
+
+#### Cancel appointment
+
 
 ## Dependencies
 - [React](https://reactjs.org/): library for building the user interface
