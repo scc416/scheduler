@@ -25,12 +25,10 @@ const useFormData = ({
   const reducer = (state, action) => {
     return reducers[action.type](state, action) || state;
   };
-
-  const interviewerId = interviewerInfo ? interviewerInfo.id : null;
-
+  
   const [state, dispatch] = useReducer(reducer, {
     student: studentName || "",
-    interviewer: interviewerId,
+    interviewer: interviewerInfo ? interviewerInfo.id : null,
     error: "",
   });
 

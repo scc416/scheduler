@@ -4,6 +4,9 @@ export default function useVisualMode(initial) {
   const [mode, setMode] = useState(initial);
   const [history, setHistory] = useState([initial]);
 
+  const historyLength = history.length;
+  const lastMode = historyLength ? history[historyLength - 1] : null;
+
   const transition = (newMode, replace = false) => {
     if (replace) {
       return setMode(newMode);
@@ -14,11 +17,9 @@ export default function useVisualMode(initial) {
   };
 
   const back = () => {
-    const historyLength = history.length;
 
     // only go back when history is not empty
-    if (historyLength > 0) {
-      const lastMode = history[historyLength - 1];
+    if (lastMode) {
       setMode(lastMode);
 
       // remove lastMode from history
@@ -26,5 +27,5 @@ export default function useVisualMode(initial) {
     }
   };
 
-  return { mode, transition, back };
+  return { mode, transition, back, lastMode };
 }

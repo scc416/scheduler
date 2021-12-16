@@ -15,6 +15,7 @@ The boilerplate was generated using [create-react-app](https://create-react-app.
 https://scheduler-sc.netlify.app/
 
 ## Final Product
+![docs/navbar](./docs/navbar.gifv)
 
 ## Dependencies
 - [React](https://reactjs.org/): library for building the user interface

@@ -18,6 +18,7 @@ const CONFIRM = "CONFIRM";
 const EDIT = "EDIT";
 const ERROR_SAVE = "ERROR_SAVE";
 const ERROR_DELETE = "ERROR_DELETE";
+const ERROR_EDIT = "ERROR_EDIT";
 
 const Appointment = ({
   time,
@@ -26,7 +27,9 @@ const Appointment = ({
   bookInterview,
   deleteInterview,
 }) => {
-  const { mode, transition, back } = useVisualMode(interview ? SHOW : EMPTY);
+  const { mode, transition, back, lastMode } = useVisualMode(
+    interview ? SHOW : EMPTY
+  );
 
   function save(name, interviewer) {
     if (!name || !interviewer) return;
@@ -43,7 +46,10 @@ const Appointment = ({
         transition(SHOW);
       })
       .catch(() => {
-        transition(ERROR_SAVE, true);
+        if (lastMode === SHOW) {
+          transition(ERROR_EDIT, true);
+        }
+        if (lastMode === EMPTY) transition(ERROR_SAVE, true);
       });
   }
 
@@ -108,6 +114,9 @@ const Appointment = ({
       )}
       {mode === ERROR_DELETE && (
         <Error message="Could not cancel appointment." onClose={() => back()} />
+      )}
+      {mode === ERROR_EDIT && (
+        <Error message="Could not edit appointment." onClose={() => back()} />
       )}
     </article>
   );
