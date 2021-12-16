@@ -17,7 +17,7 @@ https://scheduler-sc.netlify.app/
 ## Final Product
 
 ### Create appointment
-![create](./docs/create.gif) . 
+![create](./docs/create.gif)  
 A user can book an interview in an empty appointment slot.
 
 ### Edit appointment
