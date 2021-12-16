@@ -17,29 +17,29 @@ https://scheduler-sc.netlify.app/
 ## Final Product
 
 ### Create appointment
-![create](./docs/create.gif)
+![create](./docs/create.gif) . 
 A user can book an interview in an empty appointment slot.
 
 ### Edit appointment
-![edit](./docs/edit.gif)
+![edit](./docs/edit.gif)  
 Interviews are booked by typing in a student name and clicking on an interviewer from a list of available interviewers.
 
 ### Cancel appointment
-![cancel](./docs/cancel.gif)
+![cancel](./docs/cancel.gif)  
 A user can cancel an existing interview.
 A user is presented with a confirmation when they attempt to cancel an interview.
 
 ### Update all clients
-![socket](./docs/socket.gif)
+![socket](./docs/socket.gif)  
 The client application communicates with a WebSocket server.  
 When a user books or cancels an interview, all connected users see the update in their browser. Number of spots are also updated.
 
 ### Navigation Bar
-![nav-bar](./docs/nav-bar.gif)
+![nav-bar](./docs/nav-bar.gif)  
 A user can switch between weekdays.
 
 ### Handle empty input(s)
-![input-error](./docs/input-error.gif)
+![input-error](./docs/input-error.gif)  
 A user cannot book an interview if the name is empty or no interviewer is selected.
 
 ### Handling Errors
