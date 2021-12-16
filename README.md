@@ -100,6 +100,7 @@ A user is shown an error if an interview cannot be saved or deleted. When the us
  ┃ ┗ 📂support
  ┃ ┃ ┣ 📜commands.js
  ┃ ┃ ┗ 📜index.js
+ ┣ 📂 docs
  ┣ 📂public
  ┃ ┣ 📂images
  ┃ ┃ ┣ 📜add.png
@@ -163,13 +164,61 @@ A user is shown an error if an interview cannot be saved or deleted. When the us
  ┃ ┗ 📜setupTests.js
  ┣ 📂stories
  ┃ ┗ 📜index.js
- ┣ 📜.env.development
- ┣ 📜.eslintrc.json
  ┣ 📜.gitignore
  ┣ 📜README.md
  ┣ 📜cypress.json
- ┣ 📜jsconfig.json
  ┣ 📜netlify.toml
- ┣ 📜package-lock.json
  ┗ 📜package.json
 </pre>
+
+### 📂.circleci
+Configuration file for CircleCI to manage continuous integration process.
+
+### 📂cypress
+Contains the fixture and integration tests for Cypress.
+
+### 📂 docs
+Store images that are displayed in this README document. These images are not included on the diagram above.
+
+### 📂public
+Contains `index.html` (react components are rendered on this file), the favicon and other images for the web app.
+
+### 📂src
+
+#### 📂__mocks__
+Contains `axios.js` for mocking axios library in Cypress test.
+
+#### 📂components
+Contains react components, hooks, helper functions, style sheets (scss files), unit test for components and helper function (Jest).
+
+#### 📂helpers
+
+#### 📂hooks
+Contains hooks and their test (Jest).
+
+#### 📂styles
+Contains style sheets (scss files).
+
+#### 📜index.js
+This file renders react components onto `index.html`.
+
+### 📜 .gitignore
+This file is to ignore certain files so they are not pushed to github.
+
+### 📂stories
+Contains the test for [Storybook](https://storybook.js.org/).
+
+### 📜 README.md
+This document that you are reading.
+
+### 📜cypress.json
+Configure the Cypress application.
+
+### 📜netlify.toml
+Configuration file for deploying the Client to Netlify.
+
+### 📜 package.json
+This file contains:
+- the list of dependencies (node libraries that the executable code (and development code) needs)
+- dev-dependencies: node libraries only needed by development tools
+- scripts: Define the in-project shortcut commands, therefore when we can use `npm start`, `npm test` is equivalent to calling  script value
