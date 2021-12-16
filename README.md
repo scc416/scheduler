@@ -21,7 +21,7 @@ https://scheduler-sc.netlify.app/
 A user can book an interview in an empty appointment slot.
 
 ### Edit appointment
-![](./docs/.gif)
+![edit](./docs/edit.gif)
 Interviews are booked by typing in a student name and clicking on an interviewer from a list of available interviewers.
 
 ### Cancel appointment
@@ -72,12 +72,12 @@ A user is shown an error if an interview cannot be saved or deleted. When the us
 1. Clone this repository onto your local device.
 2. Clone the [server repository](https://github.com/scc416/scheduler-api) onto your local device, follow the instructions on its `README.md`.
 3. Install dependencies using the `npm install` command.
-4. Run Webpack Development Server using the `npm start` command.
+4. Run [Webpack Development Server](https://webpack.js.org/configuration/dev-server/) using the `npm start` command.
 
 ### Testing Commands
-- Run Jest Test Framework using the `npm test` command.
-- Run  Storybook Visual Testbed using the `npm run storybook` command.
-- Run Cypress with `npm run cypress` command.
+- Run [Jest](https://jestjs.io/) Test Framework using the `npm test` command.
+- Run [Storybook](https://storybook.js.org/) Visual Testbed using the `npm run storybook` command.
+- Run [Cypress](https://www.cypress.io/) with `npm run cypress` command.
 
 ## File Structure
 <pre>
@@ -172,10 +172,10 @@ A user is shown an error if an interview cannot be saved or deleted. When the us
 </pre>
 
 ### 📂.circleci
-Configuration file for CircleCI to manage continuous integration process.
+Contains the configuration file for CircleCI to manage continuous integration process.
 
 ### 📂cypress
-Contains the fixture and integration tests for Cypress.
+Contains the fixture and integration tests for [Cypress](https://www.cypress.io/).
 
 ### 📂 docs
 Store images that are displayed in this README document. These images are not included on the diagram above.
@@ -186,15 +186,16 @@ Contains `index.html` (react components are rendered on this file), the favicon 
 ### 📂src
 
 #### 📂__mocks__
-Contains `axios.js` for mocking axios library in Cypress test.
+Contains `axios.js` for mocking axios library in [Cypress](https://www.cypress.io/) test.
 
 #### 📂components
-Contains react components, hooks, helper functions, style sheets (scss files), unit test for components and helper function (Jest).
+Contains react components, style sheets (scss files) and unit tests for components ([Jest](https://jestjs.io/)).
 
 #### 📂helpers
+Contains helper functions and their unit tests ([Jest](https://jestjs.io/)).
 
 #### 📂hooks
-Contains hooks and their test (Jest).
+Contains hooks and their unit tests ([Jest](https://jestjs.io/)).
 
 #### 📂styles
 Contains style sheets (scss files).
@@ -212,7 +213,7 @@ Contains the test for [Storybook](https://storybook.js.org/).
 This document that you are reading.
 
 ### 📜cypress.json
-Configure the Cypress application.
+Configure the [Cypress](https://www.cypress.io/) application.
 
 ### 📜netlify.toml
 Configuration file for deploying the Client to Netlify.
@@ -221,4 +222,4 @@ Configuration file for deploying the Client to Netlify.
 This file contains:
 - the list of dependencies (node libraries that the executable code (and development code) needs)
 - dev-dependencies: node libraries only needed by development tools
-- scripts: Define the in-project shortcut commands, therefore when we can use `npm start`, `npm test` is equivalent to calling  script value
+- scripts: Define the in-project shortcut commands
