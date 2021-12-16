@@ -25,9 +25,9 @@ https://scheduler-sc.netlify.app/
 - [Storybook](https://storybook.js.org/): manually test components in isolation
 - [webpack-dev-server](https://webpack.js.org/configuration/dev-server/): run entire application in development mode
 - [Jest](https://jestjs.io/): run unit or integration tests from the command line
+- [Testing Library](https://testing-library.com/) - contains helper functions for testing (such as the `render` function)
 - [Cypress](https://www.cypress.io/): run automated end-to-end tests in the browser
 - [prop-types](https://github.com/facebook/prop-types): runtime type checking for React props
-- [Testing Library](https://testing-library.com/) - jest-dom, react
 
 ## Getting Started
 
@@ -39,5 +39,6 @@ https://scheduler-sc.netlify.app/
 ### Testing Commands
 - Run Jest Test Framework using the `npm test` command.
 - Run  Storybook Visual Testbed using the `npm run storybook` command.
+- Run Cypress with `npm run cypress` command.
 
 ## File Structure
