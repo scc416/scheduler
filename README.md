@@ -25,7 +25,7 @@ A user can book an interview in an empty appointment slot.
 Interviews are booked by typing in a student name and clicking on an interviewer from a list of available interviewers.
 
 ### Cancel appointment
-![](./docs/.gif)
+![cancel](./docs/cancel.gif)
 A user can cancel an existing interview.
 A user is presented with a confirmation when they attempt to cancel an interview.
 
