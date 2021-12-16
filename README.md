@@ -46,7 +46,7 @@ A user cannot book an interview if the name is empty or no interviewer is select
 A user is shown an error if an interview cannot be saved or deleted. When the user presses the close button of the error they are returned to the Form or Show view.
 
 #### Create appointment
-![](./docs/.gif)
+![create-error](./docs/create-error.gif)
 
 #### Edit appointment
 ![edit-error](./docs/edit-error.gif)
