@@ -12,7 +12,8 @@ The boilerplate was generated using [create-react-app](https://create-react-app.
 - [File Structure](#file-structure)
 
 ## Live Demo
-https://scheduler-sc.netlify.app/
+The server is deployed to Heroku.  CircleCI manages the continuous integration process, and Netlify serves the static client assets:
+https://the-schedule.netlify.app/
 
 ## Final Product
 
@@ -63,7 +64,7 @@ A user is shown an error if an interview cannot be saved or deleted. When the us
 - [Storybook](https://storybook.js.org/): manually test components in isolation
 - [webpack-dev-server](https://webpack.js.org/configuration/dev-server/): run entire application in development mode
 - [Jest](https://jestjs.io/): run unit or integration tests from the command line
-- [Testing Library](https://testing-library.com/) - contains helper functions for testing (such as the `render` function)
+- [Testing Library](https://testing-library.com/): contains helper functions for testing (such as the `render` function)
 - [Cypress](https://www.cypress.io/): run automated end-to-end tests in the browser
 - [prop-types](https://github.com/facebook/prop-types): runtime type checking for React props
 
