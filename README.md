@@ -30,7 +30,7 @@ A user can cancel an existing interview.
 A user is presented with a confirmation when they attempt to cancel an interview.
 
 ### Update all clients
-![](./docs/.gif)
+![socket](./docs/socket.gif)
 The client application communicates with a WebSocket server.  
 When a user books or cancels an interview, all connected users see the update in their browser. Number of spots are also updated.
 
