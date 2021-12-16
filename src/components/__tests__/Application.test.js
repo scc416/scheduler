@@ -1,4 +1,5 @@
 import React from "react";
+import { getByText, prettyDOM } from "@testing-library/react";
 
 import {
   render,
@@ -22,11 +23,9 @@ describe("Application", () => {
   });
 
   it("loads data, books an interview and reduces the spots remaining for the first day by 1", async () => {
-    const { container, getByText } = render(<Application />);
-    await waitForElement(() => getByText("Monday"));
-    console.log(container);
-    fireEvent.click(getByText("Tuesday"));
+    const { container } = render(<Application />);
 
-    expect(getByText("Leopold Silvers")).toBeInTheDocument();
+    console.log(prettyDOM(container));
+
   });
 });
