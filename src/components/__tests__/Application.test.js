@@ -3,7 +3,11 @@ import {
   render,
   cleanup,
   waitForElement,
-  fireEvent,getByText, getAllByTestId, getByAltText, getByPlaceholderText
+  fireEvent,
+  getByText,
+  getAllByTestId,
+  getByAltText,
+  getByPlaceholderText,
 } from "@testing-library/react";
 
 import Application from "components/Application";
@@ -21,8 +25,7 @@ describe("Application", () => {
   });
 
   it("loads data, books an interview and reduces the spots remaining for the first day by 1", async () => {
-    const { container } =
-      render(<Application />);
+    const { container, debug } = render(<Application />);
 
     await waitForElement(() => getByText(container, "Archie Cohen"));
     const appointment = getAllByTestId(container, "appointment")[0];
