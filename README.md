@@ -52,7 +52,7 @@ A user is shown an error if an interview cannot be saved or deleted. When the us
 ![edit-error](./docs/edit-error.gif)
 
 #### Cancel appointment
-![](./docs/.gif)
+![cancel-error](./docs/cancel-error.gif)
 
 ## Dependencies
 - [React](https://reactjs.org/): library for building the user interface
