@@ -17,7 +17,7 @@ https://scheduler-sc.netlify.app/
 ## Final Product
 
 ### Create appointment
-![](./docs/.gif)
+![create](./docs/create.gif)
 A user can book an interview in an empty appointment slot.
 
 ### Edit appointment
@@ -43,7 +43,6 @@ A user can switch between weekdays.
 A user cannot book an interview if the name is empty or no interviewer is selected.
 
 ### Handling Errors
-![](./docs/.gif)
 A user is shown an error if an interview cannot be saved or deleted. When the user presses the close button of the error they are returned to the Form or Show view.
 
 #### Create appointment
