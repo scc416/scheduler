@@ -6,7 +6,7 @@ import useFormData from "hooks/useFormData";
 const Form = (props) => {
   const { interviewers } = props;
   const {
-    state: { student, interviewer, studentError },
+    state: { student, interviewer, studentError, interviewerError },
     onChangeHandler,
     validate,
     setInterviewer,
@@ -33,7 +33,7 @@ const Form = (props) => {
           onChange={setInterviewer}
           value={interviewer}
         />
-        <section className="appointment__validation">{studentError}</section>
+        <section className="appointment__validation">{interviewerError}</section>
       </section>
       <section className="appointment__card-right">
         <section className="appointment__actions">

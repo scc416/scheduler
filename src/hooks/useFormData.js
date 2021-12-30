@@ -14,8 +14,8 @@ const useFormData = ({
     [SET_INTERVIEWER](state, { interviewer }) {
       return { ...state, interviewer };
     },
-    [SET_ERROR](state, { studentError }) {
-      return { ...state, studentError };
+    [SET_ERROR](state, { studentError, interviewerError }) {
+      return { ...state, studentError, interviewerError };
     },
     [SET_STUDENT](state, { student }) {
       return { ...state, student };
@@ -25,11 +25,12 @@ const useFormData = ({
   const reducer = (state, action) => {
     return reducers[action.type](state, action) || state;
   };
-  
+
   const [state, dispatch] = useReducer(reducer, {
     student: studentName || "",
     interviewer: interviewerInfo ? interviewerInfo.id : null,
-    studentError: "",
+    studentError: null,
+    interviewerError: null,
   });
 
   const { student, interviewer } = state;
@@ -40,17 +41,32 @@ const useFormData = ({
   };
 
   const reset = () => {
-    dispatch({ type: SET_ERROR, studentError: "" });
+    dispatch({ type: SET_ERROR, studentError: "", interviewerError: "" });
     dispatch({ type: SET_STUDENT, student: "" });
     dispatch({ type: SET_INTERVIEWER, interviewer: null });
     onCancel();
   };
 
   const validate = () => {
+    if (!student && !interviewer) {
+      return dispatch({
+        type: SET_ERROR,
+        studentError: "Student name cannot be blank",
+        interviewerError: "Pick an interviewer",
+      });
+    }
+
     if (!student) {
       return dispatch({
         type: SET_ERROR,
         studentError: "Student name cannot be blank",
+      });
+    }
+
+    if (!interviewer) {
+      return dispatch({
+        type: SET_ERROR,
+        interviewerError: "Pick an interviewer",
       });
     }
 
