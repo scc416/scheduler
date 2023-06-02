@@ -5,15 +5,10 @@ The boilerplate was generated using [create-react-app](https://create-react-app.
 
 ## Table of Content
 
-- [Live Demo](#live-demo)
 - [Final Product](#final-product)
 - [Dependencies](#dependencies)
 - [Getting Started](#getting-started)
 - [File Structure](#file-structure)
-
-## Live Demo
-The server is deployed to Heroku.  CircleCI manages the continuous integration process, and Netlify serves the static client assets:
-https://the-schedule.netlify.app/
 
 ## Final Product
 
